@@ -1,0 +1,97 @@
+{
+	"info": {
+		"_postman_id": "6e585242-af1a-4ba7-9217-6af946b14648",
+		"name": "ASP_MusicLibrary_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30238042"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"Title\": \"Fatima\",\r\n        \"Artist\": \"Yasin\",\r\n        \"Album\": \"Project\",\r\n        \"ReleaseDate\": \"2012-04-23T00:00:00\",\r\n        \"Genre\": \"Punk\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7205/api/Songs",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7205",
+					"path": [
+						"api",
+						"Songs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7205/api/Songs",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7205",
+					"path": [
+						"api",
+						"Songs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"Title\": \"Fatima\",\r\n        \"Artist\": \"Thomas\",\r\n        \"Album\": \"Project\",\r\n        \"ReleaseDate\": \"2012-04-23T00:00:00\",\r\n        \"Genre\": \"Punk\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7205/api/Songs/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7205",
+					"path": [
+						"api",
+						"Songs",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
