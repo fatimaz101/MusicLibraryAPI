@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using MusicLibraryWebAPI.Data;
 using MusicLibraryWebAPI.Models;
+using System.Diagnostics.Eventing.Reader;
 using System.Runtime.Versioning;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -26,14 +29,27 @@ namespace MusicLibraryWebAPI.Controllers
 
             var songs = _context.Songs.ToList();
 
-             return Ok(songs);
+             return StatusCode(200,songs);
         }
 
         // GET api/<SongsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+
+            var song = _context.Songs.Where(sng => sng.Id == id).FirstOrDefault();
+
+            if (song != null)
+            {
+
+                return StatusCode(200, song);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+           
         }
 
         // POST api/<SongsController>
@@ -48,14 +64,46 @@ namespace MusicLibraryWebAPI.Controllers
 
         // PUT api/<SongsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] Song song)
         {
+
+
+            var updatedSong = _context.Songs.Where(sng => sng.Id == id).First();
+            
+
+           
+            try
+            {
+                
+
+                updatedSong.Title = song.Title;
+                updatedSong.Artist = song.Artist;
+                updatedSong.Album = song.Album;
+                updatedSong.ReleaseDate = song.ReleaseDate;
+                updatedSong.Genre = song.Genre;
+
+
+              
+
+                _context.SaveChanges();
+                return StatusCode(200, song);
+            }
+            catch
+            {
+                 return NotFound();
+            }
+
         }
 
         // DELETE api/<SongsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var song = _context.Songs.Where(sng => sng.Id == id).First();
+            _context.Songs.Remove(song);
+            _context.SaveChanges();
+            return StatusCode(200, NotFound());
+
         }
     }
 }
